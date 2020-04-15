@@ -1,19 +1,64 @@
 {
+  "professores": [
+    {
+      "id": 1,
+      "nome": "Asdrubal"
+    },
+    {
+      "id": 2,
+      "nome": "Gerônimo"
+    },
+    {
+      "id": 3,
+      "nome": "Jurema"
+    }
+  ],
   "alunos": [
     {
       "id": 1,
       "nome": "Fulano",
-      "sobrenome": "da Silva"
+      "sobrenome": "Silva",
+      "dataNasc": "01/10/2001",
+      "professor": {
+        "id": 3,
+        "nome": "Jurema"
+      }
     },
     {
       "id": 2,
       "nome": "Ciclano",
-      "sobrenome": "Pereira"
+      "sobrenome": "Pereira",
+      "professor": {
+        "id": 1,
+        "nome": "Asdrubal"
+      }
     },
     {
       "nome": "Joao",
       "sobrenome": "",
-      "id": 4
+      "id": 4,
+      "professor": {
+        "id": 2,
+        "nome": "Gerônimo"
+      }
+    },
+    {
+      "nome": "kkk eae men",
+      "sobrenome": "",
+      "professor": {
+        "id": 3,
+        "nome": "Jurema"
+      },
+      "id": 6
+    },
+    {
+      "nome": "oitd pom",
+      "sobrenome": "",
+      "professor": {
+        "id": 1,
+        "nome": "Asdrubal"
+      },
+      "id": 7
     }
   ]
 }

@@ -1,36 +1,45 @@
 <template>
   <div id="app">
-    <Alunos/>
+    <Nav></Nav>
+    <div class="margin-principal">
+      <router-view :key="$route.fullPath"></router-view>
+    </div>
   </div>
 </template>
 
 <script>
-import Alunos from './components/aluno/Alunos.vue'
+import Nav from "./components/_nav/Nav.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    Alunos
+    Nav
   }
-}
+};
 </script>
 
 <style>
 @import url("http://fonts.googleapis.com/css?family=Montserrat:400,700");
 
-body{
+body {
   background-color: #eee;
   font-family: "Montserrat", sans-serif;
   display: grid;
   justify-items: center;
 }
 
-body{
+.margin-principal {
+  width: 50%;
+  margin: auto;
+}
+
+body {
   margin: 0;
   height: 100%;
 }
 
 #app {
+  width: 100%;
 }
 
 table {
@@ -57,26 +66,52 @@ table tr td {
 
 .col-small {
   width: 5%;
+  text-align: right;
+  background-color: rgb(125, 217, 245);
+  font-weight: bold;
 }
 
 .spicy {
   background-color: #f35442;
 }
 
+.clean-sky {
+  background-color: rgb(76, 186, 249);
+}
+
+.grassy {
+  background-color: rgb(79, 196, 68);
+}
+
+.sandy {
+  background-color: rgb(249, 186, 92);
+}
 
 .btn {
   border: 1px solid black;
-  color:white;
+  color: white;
   cursor: pointer;
   padding: 10px 20px;
   font-weight: bold;
   border-radius: 5px;
   border-bottom: 2px solid black;
+  font-size: 0.8em;
 }
 
 .btn:hover {
   text-shadow: 1px 1px 1px black;
   margin-top: 1px;
   border-bottom: 1px solid black;
+}
+
+.btn-right {
+  float: right;
+}
+.btn-left {
+  float: left;
+}
+
+.titan-size {
+  font-size: 1.4em !important;
 }
 </style>
