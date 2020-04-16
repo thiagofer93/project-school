@@ -1,6 +1,6 @@
 <template>
   <div>
-    <titulo :texto="professorId != undefined ? `Professor: ${professor.nome}` : 'Todos os alunos'" />
+    <titulo :texto="professorId != undefined ? `Professor: ${professor.nome}` : 'Todos os alunos'" :btnVoltar="true"/>
     <div v-if="professorId != undefined">
       <input type="text" placeholder="Nome do aluno" v-model="nome" @keyup.enter="addAluno()" />
       <button class="btn btn-input" @click="addAluno()">Adicionar</button>
@@ -14,13 +14,23 @@
       <tbody v-if="alunos.length">
         <tr v-for="(aluno, index) in alunos" :key="index">
           <td class="col-small">{{aluno.id}}</td>
-          <router-link tag="td" :to="`/alunoDetalhe/${aluno.id}`" style="cursor: pointer">{{aluno.nome}} {{aluno.sobrenome}}</router-link>
+          <router-link
+            tag="td"
+            :to="`/alunoDetalhe/${aluno.id}`"
+            style="cursor: pointer"
+          >{{aluno.nome}} {{aluno.sobrenome}}</router-link>
           <td class="col-small">
             <button class="btn spicy" @click="remover(aluno)">Remover</button>
           </td>
         </tr>
       </tbody>
-      <tfoot v-else>Nenhum aluno encontrado</tfoot>
+      <tfoot v-else>
+        <tr>
+          <td colspan="3" style="text-align:center">
+            <h4>Nenhum aluno encontrado</h4>
+          </td>
+        </tr>
+      </tfoot>
     </table>
   </div>
 </template>
@@ -45,12 +55,12 @@ export default {
     if (this.professorId) {
       this.carregarProfessor();
       this.$http
-        .get(`http://localhost:3000/alunos?professor.id=${this.professorId}`)
+        .get(`http://localhost:5000/api/aluno/professor/${this.professorId}`)
         .then(res => res.json())
         .then(alunos => (this.alunos = alunos));
     } else {
       this.$http
-        .get("http://localhost:3000/alunos")
+        .get("http://localhost:5000/api/aluno")
         .then(res => res.json())
         .then(alunos => (this.alunos = alunos));
     }
@@ -61,14 +71,12 @@ export default {
       let alunoAdd = {
         nome: this.nome,
         sobrenome: "",
-        professor: {
-          id: this.professor.id,
-          nome: this.professor.nome
-        }
+        dataNasc: "",
+        professorId: this.professor.id
       };
 
       this.$http
-        .post("http://localhost:3000/alunos", alunoAdd)
+        .post("http://localhost:5000/api/aluno", alunoAdd)
         .then(res => res.json())
         .then(aluno => {
           this.alunos.push(aluno);
@@ -76,14 +84,16 @@ export default {
         });
     },
     remover(aluno) {
-      this.$http.delete(`http://localhost:3000/alunos/${aluno.id}`).then(() => {
-        let indice = this.alunos.indexOf(aluno);
-        this.alunos.splice(indice, 1);
-      });
+      this.$http
+        .delete(`http://localhost:5000/api/aluno/${aluno.id}`)
+        .then(() => {
+          let indice = this.alunos.indexOf(aluno);
+          this.alunos.splice(indice, 1);
+        });
     },
     carregarProfessor() {
       this.$http
-        .get(`http://localhost:3000/professores/${this.professorId}`)
+        .get(`http://localhost:5000/api/professor/${this.professorId}`)
         .then(res => res.json())
         .then(professor => (this.professor = professor));
     }
