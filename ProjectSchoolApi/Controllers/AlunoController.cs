@@ -22,7 +22,7 @@ namespace ProjectSchoolApi.Controllers
         {
             try
             {
-                var result = await _repo.GetAllAlunosAsync();
+                var result = await _repo.GetAllAlunosAsync(true);
                 return Ok(result);
             }
             catch (Exception)
@@ -50,7 +50,7 @@ namespace ProjectSchoolApi.Controllers
         {
             try
             {
-                var result = await _repo.GetProfessorByIdAsync(professorId);
+                var result = await _repo.GetAllAlunosByProfessorIdAsync(professorId, true);
                 return Ok(result);
             }
             catch (Exception)
